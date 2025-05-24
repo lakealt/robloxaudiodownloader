@@ -129,9 +129,9 @@
         const img = thumb.data?.[0]?.imageUrl || "";
 
         document.getElementById("assetInfo").innerHTML = `
-          <strong>Name:</strong> ${details.name || "N/A"}<br>
-          <strong>Description:</strong> ${details.description || "N/A"}<br>
-          <strong>Creator:</strong> ${details.creator?.name || "N/A"}<br>
+          <strong>Name:</strong> ${details.Name || "N/A"}<br>
+          <strong>Description:</strong> ${details.Description || "N/A"}<br>
+          <strong>Creator:</strong> ${details.Creator?.name || "N/A"}<br>
           <img src="${img}" alt="Asset Thumbnail" />
           <br><a href="https://assetdelivery.roblox.com/v1/asset?id=${id}" target="_blank" rel="noopener">Download Asset</a>
         `;
