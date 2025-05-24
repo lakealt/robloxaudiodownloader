@@ -110,7 +110,7 @@
 
   <script>
     // Replace this with your actual Cloudflare Worker URL:
-    const proxy = "https://your-worker.subdomain.workers.dev";
+    const proxy = "https://meisddddevrahsanko.workers.dev/";
 
     async function proxiedFetch(url) {
       const encoded = encodeURIComponent(url);
