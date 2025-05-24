@@ -163,7 +163,7 @@
           return;
         }
         document.getElementById("subplacesResult").innerHTML = data.data
-          .map(p => `Place ID: ${p.placeId} - Name: ${p.name}`)
+          .map(p => `Place ID: ${p.id} - Name: ${p.name}`)
           .join("<br>");
       } catch {
         document.getElementById("subplacesResult").textContent = "Failed to fetch subplaces.";
