@@ -71,42 +71,36 @@
 <body>
   <h1>🎧 Roblox Asset Inspector</h1>
   <div class="container">
-
     <div class="section">
       <h2>Asset Info</h2>
       <input type="text" id="assetId" placeholder="Asset ID">
       <button onclick="getAssetInfo()">Get Info</button>
       <div class="result" id="assetInfo"></div>
     </div>
-
     <div class="section">
       <h2>Place to Universe</h2>
       <input type="text" id="placeIdInput" placeholder="Place ID">
       <button onclick="getUniverseId()">Convert</button>
       <div class="result" id="universeIdResult"></div>
     </div>
-
     <div class="section">
       <h2>Subplaces</h2>
       <input type="text" id="universeIdSubplaces" placeholder="Universe ID">
       <button onclick="getSubplaces()">Get Subplaces</button>
       <div class="result" id="subplacesResult"></div>
     </div>
-
     <div class="section">
       <h2>Badges</h2>
       <input type="text" id="universeBadgeId" placeholder="Universe ID">
       <button onclick="getUniverseBadges()">Get Badges</button>
       <div class="result" id="badgeResult"></div>
     </div>
-
     <div class="section">
       <h2>Badge Info</h2>
       <input type="text" id="badgeId" placeholder="Badge ID">
       <button onclick="getBadgeInfo()">Fetch</button>
       <div class="result" id="badgeInfo"></div>
     </div>
-
     <div class="section">
       <h2>User Badge Time</h2>
       <input type="text" id="userIdBadge" placeholder="User ID">
@@ -114,26 +108,21 @@
       <button onclick="getBadgeAward()">Check</button>
       <div class="result" id="badgeAwardResult"></div>
     </div>
-
     <div class="section">
       <h2>User Info</h2>
       <input type="text" id="userIdInfo" placeholder="User ID">
       <button onclick="getUserInfo()">Fetch</button>
       <div class="result" id="userInfo"></div>
     </div>
-
   </div>
-
   <script>
-    const proxy = "https://your-worker.subdomain.workers.dev";
-
+    const proxy = "https://old-dust-fd75.devrahsanko.workers.dev";
     async function proxiedFetch(url) {
       const encoded = encodeURIComponent(url);
       const res = await fetch(`${proxy}?url=${encoded}`);
       if (!res.ok) throw new Error("Request failed");
       return res.json();
     }
-
     async function getAssetInfo() {
       const id = document.getElementById("assetId").value;
       const details = await proxiedFetch(`https://economy.roblox.com/v2/assets/${id}/details`);
@@ -150,38 +139,32 @@
         <a href="https://assetdelivery.roblox.com/v1/asset?id=${id}" target="_blank">Download Asset</a>
       `;
     }
-
     async function getUniverseId() {
       const id = document.getElementById("placeIdInput").value;
       const data = await proxiedFetch(`https://apis.roblox.com/universes/v1/places/${id}/universe`);
       document.getElementById("universeIdResult").textContent = `Universe ID: ${data.universeId}`;
     }
-
     async function getSubplaces() {
       const id = document.getElementById("universeIdSubplaces").value;
       const data = await proxiedFetch(`https://develop.roblox.com/v1/universes/${id}/places?limit=100`);
       document.getElementById("subplacesResult").innerHTML = data.data.map(p => `Place ID: ${p.placeId} - ${p.name}`).join('<br>');
     }
-
     async function getUniverseBadges() {
       const id = document.getElementById("universeBadgeId").value;
       const data = await proxiedFetch(`https://badges.roblox.com/v1/universes/${id}/badges?limit=100`);
       document.getElementById("badgeResult").innerHTML = data.data.map(b => `<img src="${b.imageUrl}"/><br>${b.name}: ${b.description}`).join('<hr>');
     }
-
     async function getBadgeInfo() {
       const id = document.getElementById("badgeId").value;
       const b = await proxiedFetch(`https://badges.roblox.com/v1/badges/${id}`);
       document.getElementById("badgeInfo").innerHTML = `<strong>${b.name}</strong><br><img src="${b.imageUrl}"/><br>${b.description}<br>Created: ${b.created}`;
     }
-
     async function getBadgeAward() {
       const user = document.getElementById("userIdBadge").value;
       const badge = document.getElementById("badgeIdUser").value;
       const data = await proxiedFetch(`https://badges.roblox.com/v1/users/${user}/badges/awarded-dates?badgeIds=${badge}`);
       document.getElementById("badgeAwardResult").textContent = data.data[0]?.awardedDate || "Not awarded";
     }
-
     async function getUserInfo() {
       const id = document.getElementById("userIdInfo").value;
       const user = await proxiedFetch(`https://users.roblox.com/v1/users/${id}`);
